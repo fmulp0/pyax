@@ -1,0 +1,5 @@
+*.adf
+.idea/
+__pycache__/
+*.pyc
+
