@@ -3,7 +3,7 @@ import serial, struct, sys
 class AX:
     def __init__(self, device='/dev/ttyUSB0'):
         self.device = device
-        self.ser = serial.Serial(port=device, baudrate=9600, timeout=3, rtscts=1, dsrdtr=1)
+        self.ser = serial.Serial(port=device, baudrate=19200, timeout=3, rtscts=1, dsrdtr=1)
 
     def close(self):
         self.ser.close()
@@ -30,8 +30,9 @@ class AX:
         return size
 
     def read_result(self):
-        result = int(struct.unpack('b', self.read_data(1))[0])
-        return result
+        code = struct.unpack('!i', self.read_data(4))
+        xx = struct.unpack('!i', self.read_data(4))
+        return code
 
     def write_str(self, str):
         data = bytearray()
